@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html ng-app="invIndex">
+
+  <head>
+
+    <script type="text/javascript" src="https://code.angularjs.org/1.6.3/angular.min.js"></script>
+
+    <script type="text/javascript" src="inverted-index.js"></script>
+
+    <script type="text/javascript" src="app.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="stylesheet.css">
+
+    
+  </head>
+  <body ng-controller="invController">
+    <!-- beginning of modal -->
+    <div id="response-modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Error</h4>
+          </div>
+          <div class="modal-body">
+            <p>{{message}}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- end of modal -->
+
+    <div class="nav">
+      <div class="container">
+        <form class="form-inline">
+          <div class="form-group">
+            <label class="btn btn-large btn-block btn-primary">Upload File
+              <input class="form-control" type="file" multiple accept=".json" id="upload">
+            </label>
+          </div>
+          <div class="form-group">
+            <select class="form-control" id = "loaded" ng-model="selectedFile">
+              <option ng-repeat="item in uploadedFiles">{{ item }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" ng-click="getIndex(selectedFile)">Create Index</button>
+          </div>
+          <div class="form-group pull-right">
+            <a href="#" class="btn btn-info btn-lg">
+              <span class="glyphicon glyphicon-info-sign"></span> Info
+            </a>
+          </div>
+          <div class="form-group pull-right">
+            <input type="text" class="form-control" placeholder="Type search terms" name="srch-term" id="srch-term">
+                <button class="btn btn-default" type="submit">
+                  <i class="glyphicon glyphicon-search"></i>
+                </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="jumbotron">
+        <h1>Inverted Index</h1>
+        <p>Get Inverted Index anywhere in the world!</p>
+        <div class="bg"></div>
+      </div>
+    </div>
+
+    <div class="container">
+    <div class="row">
+      <div>
+        <h2>
+          <span ng-if="showIndex===true">Showing index for</span>
+          <span ng-if="showIndex===false">Search result for "{{searchTerms}}" in "{{details.searchedFiles}}"</span>
+        </h2>
+        <table class="table table-striped">
+          <thead>
+            <th>Tokens</th>
+            <th style="text-align:center">Document</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>key</td>
+              <td>
+                <span>X</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    </div>
+
+	<footer>&copyPfunky inc</footer>
+ 
+  </body>
+
+</html>
