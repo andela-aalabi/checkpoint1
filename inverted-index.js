@@ -114,13 +114,9 @@ class InvertedIndex {
   static searchIndex(word, file) {
     if (file === 'all') {
       const filesIndexedDocs = Object.keys(this.filesIndexed);
-      filesIndexedDocs.forEach((doc) => {
-        console.log(doc, this.filesIndexed[doc][word]);
-      });
+      filesIndexedDocs.forEach(doc => this.filesIndexed[doc][word]);
     }
-    const location = this.getIndex(file);
-    // for ()
-    return location[word];
+    return this.filesIndexed[file][word];
   }
 }
 
