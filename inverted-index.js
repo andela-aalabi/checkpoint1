@@ -25,9 +25,9 @@ class InvertedIndex {
       text = this.tokenize(text);
       text.forEach((word) => {
         if (!(word in indexed)) {
-          indexed[word] = [(index + 1)];
-        } else if (!(indexed[word].includes(index + 1))) {
-          indexed[word].push(index + 1);
+          indexed[word] = [(index)];
+        } else if (!(indexed[word].includes(index))) {
+          indexed[word].push(index);
         }
       });
     });
@@ -111,12 +111,12 @@ class InvertedIndex {
    * @param {Object} file - specific file to search through
    * @return {String} string of text in the uploaded file
   */
-  static searchIndex(word, file) {
+  searchIndex(word, file) {
     if (file === 'all') {
-      const filesIndexedDocs = Object.keys(this.filesIndexed);
-      filesIndexedDocs.forEach(doc => this.filesIndexed[doc][word]);
+      const filesIndexedDocs = Object.keys(this.allIndexed);
+      return filesIndexedDocs.forEach(doc => this.allIndexed[doc][word]);
     }
-    return this.filesIndexed[file][word];
+    return this.allIndexed[file][word];
   }
 }
 
@@ -127,4 +127,4 @@ class InvertedIndex {
 // getIndex: Get’s indices created for particular files
 // searchIndex: Searches through one or more indices for words
 
-module.exports = InvertedIndex;
+// module.exports = InvertedIndex;

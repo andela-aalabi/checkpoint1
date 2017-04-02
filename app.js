@@ -4,8 +4,10 @@ invApp.controller('invController', ['$scope', ($scope) => {
   const scope = $scope;
   scope.filesRead = {};
   scope.uploadedFiles = [];
+  scope.count = 0;
 
   const invIndex = new InvertedIndex();
+  scope.allIndexed = invIndex.allIndexed;
 
   scope.readFile = (files) => {
     const doc = files.target;
@@ -35,19 +37,24 @@ invApp.controller('invController', ['$scope', ($scope) => {
   document.getElementById('upload').addEventListener('change', scope.readFile);
 
   scope.getIndex = (filename) => {
+    scope.titles = [];
     const file = JSON.parse(scope.filesRead[filename]);
     if (invIndex.validateFile(file)) {
+      file.forEach(obj => scope.titles.push(obj.title));
       const indices = invIndex.getIndex(file, filename);
       console.log(indices);
-
+      const documents = [];
+      for (let i = 0; i < scope.titles.length; i += 1) {
+        documents.push(i);
+      }
       scope.showIndex = true;
       scope.indexed = [
-        {
-          indexes: indices,
-          documents: invIndex.getDocuments(fileChoice),
-          indexedFile: fileChoice
+        { indexes: indices,
+          docs: documents,
+          indexedFile: scope.selectedFile,
         },
       ];
+      scope.count += 1;
     } else {
       console.log('invalide file format');
     }
