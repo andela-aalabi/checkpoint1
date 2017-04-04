@@ -16,7 +16,8 @@ class InvertedIndex {
    * Create Index
    * createIndex method takes a single document and builds an index from it
    * @param {Object} file - the file to be indexed
-   * @return {Object} the file with words indexed
+   * @param {String} filename - the name of the file to be indexed
+   * @return {Object} all words in the file and their corresponding indexes
    */
   createIndex(file, filename) {
     const indexed = {};
@@ -38,9 +39,10 @@ class InvertedIndex {
   /**
    * Get Index
    * getIndex method gets the indexed file with words from documents that were
-   * found. If the file is not indexed, it calls the create index method
-   * @param {Object} file
-   * @return {Object} the file with words indexed
+   * found. If the file has not been indexed, it calls the create index method
+   * @param {Object} file - the file we want to get indexed
+   * @param {String} filename - the name of the file to be indexed
+   * @return {Object} all words in the file and their corresponding indexes
    */
   getIndex(file, filename) {
     if (filename in this.allIndexed) {
@@ -51,8 +53,8 @@ class InvertedIndex {
 
    /**
    * tokenize method removes special characters and returns an array of words
-   * @param {string} text - the text to be tokenized
-   * @return {array} array of words in the documents
+   * @param {string} text - the validated text to be tokenized
+   * @return {array} array of words in the document
   */
   tokenize(text) {
     this.text = text;
@@ -93,7 +95,7 @@ class InvertedIndex {
 
   /**
    * readFile method reads the data from the file being uploaded
-   * @param {JSON} fileData - the uploaded file
+   * @param {JSON} fileData - the raw uploaded file
    * @return {String} string of text in the uploaded file
   */
   readFile(fileData) {
@@ -107,9 +109,9 @@ class InvertedIndex {
   }
 
   /**
-   * readFile method reads the data from the file being uploaded
+   * searchIndex method searches the indexed files for occurences of words
    * @param {String} word - word that one is searching for
-   * @param {Object} file - specific file to search through
+   * @param {Object} filename - specific file to search through
    * @return {String} string of text in the uploaded file
   */
   searchIndex(word, filename) {

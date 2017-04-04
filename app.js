@@ -82,7 +82,7 @@ invApp.controller('invController', ['$scope', ($scope) => {
         throw new Error('Please type word(s) to search for and not symbols');
       } else {
         const result = {};
-        scope.selectedSearch = cleanedTerms.toString();
+        scope.displaySearch = cleanedTerms.toString();
         cleanedTerms.forEach((term) => {
           const found = invIndex.searchIndex(term, scope.fileSearch);
           result[term] = found;
