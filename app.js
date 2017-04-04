@@ -69,34 +69,31 @@ invApp.controller('invController', ['$scope', ($scope) => {
     console.log(cleanedTerms);
     const result = {};
     cleanedTerms.forEach((term) => {
-      // indexes: this.getSearchResults(searchTerm, filename),
-      // searchedFile: filename,
-      // documents: this.getDocuments(filename)
-
-      const titles = [];
       const found = invIndex.searchIndex(term, scope.fileToSearch);
       if (found !== false) {
         result[term] = found;
       }
-      const file = JSON.parse(scope.filesRead[scope.fileToSearch]);
-      file.forEach(obj => titles.push(obj.title));
-      const documents = [];
-      for (let i = 0; i < titles.length; i += 1) {
-        documents.push(i);
-      }
-      scope.search = [
-        { indexes: result,
-          docs: documents,
-          title: titles,
-        },
-      ];
-      console.log(scope.search[0].indexes);
     });
+
+    const titles = [];
+    const file = JSON.parse(scope.filesRead[scope.fileToSearch]);
+    file.forEach(obj => titles.push(obj.title));
+    const documents = [];
+    for (let i = 0; i < titles.length; i += 1) {
+      documents.push(i);
+    }
+    scope.search.push({
+      indexes: result,
+      docs: documents,
+      title: titles,
+    });
+    console.log(scope.search[0].indexes);
 
     scope.showIndex = false;
   };
 
   scope.searchIndex = () => {
+    scope.search = [];
     if (scope.fileToSearch === 'All') {
       const all = Object.keys(scope.filesIndexed);
       all.forEach((file) => {
