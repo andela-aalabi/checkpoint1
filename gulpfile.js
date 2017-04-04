@@ -9,8 +9,6 @@ const htmlSource = './index.html';
 const cssSource = './stylesheet.css';
 const jsSource = './app.js';
 
-
-
 gulp.task('connect', () => {
   connect.server({
     root: ['./'],
