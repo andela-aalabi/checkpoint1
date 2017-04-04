@@ -125,11 +125,3 @@ class InvertedIndex {
   }
 }
 
-// readFile: Reads the data from the file being uploaded
-// validateFile: Ensures all the documents in a particular file are valid
-// tokenize: Strips out special characters from documents to be indexed
-// createIndex: Creates the index for documents
-// getIndex: Get’s indices created for particular files
-// searchIndex: Searches through one or more indices for words
-
-// module.exports = InvertedIndex;

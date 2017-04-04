@@ -68,7 +68,7 @@
           <div class="form-group pull-right">
             <select class="form-control" ng-hide="count < 1" ng-model="fileToSearch">
               <option value="All" ng-if="count > 1">All</option>
-              <option ng-repeat="(key, values) in allIndexed">{{ key }}</option>
+              <option ng-repeat="(key, values) in filesIndexed">{{ key }}</option>
             </select>
           </div>
         </form>
@@ -87,7 +87,7 @@
       <div class="row">
         <div ng-repeat="(key, details) in indexed">
           <h2>
-            <span>Showing index for {{selectedFile}}</span>
+            <span>Showing index for {{details.indexedFile}}</span>
           </h2>
           <table class="table table-striped">
             <thead>
@@ -112,7 +112,7 @@
       <div class="row">
         <div ng-repeat="(key, details) in search">
           <h2>
-            <span>Search result for "{{selectedSearch}}" in "{{fileToSearch}}"</span>
+            <span>Search result for "{{selectedSearch}}" in "{{details.searchedFile}}"</span>
           </h2>
           <table class="table table-striped">
             <thead>

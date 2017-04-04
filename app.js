@@ -9,7 +9,6 @@ invApp.controller('invController', ['$scope', ($scope) => {
   scope.filesIndexed = {};
 
   const invIndex = new InvertedIndex();
-  scope.allIndexed = invIndex.allIndexed;
 
   scope.readFile = (files) => {
     const doc = files.target;
@@ -44,7 +43,6 @@ invApp.controller('invController', ['$scope', ($scope) => {
     if (invIndex.validateFile(file)) {
       file.forEach(obj => titles.push(obj.title));
       const indices = invIndex.getIndex(file, filename);
-      console.log(indices);
       const documents = [];
       for (let i = 0; i < titles.length; i += 1) {
         documents.push(i);
@@ -53,7 +51,7 @@ invApp.controller('invController', ['$scope', ($scope) => {
       scope.indexed = [
         { indexes: indices,
           docs: documents,
-          // indexedFile: scope.selectedFile,
+          indexedFile: scope.selectedFile,
           title: titles,
         },
       ];
@@ -66,17 +64,16 @@ invApp.controller('invController', ['$scope', ($scope) => {
 
   const searchIndexOneFile = () => {
     const cleanedTerms = invIndex.tokenize(scope.selectedSearch);
-    console.log(cleanedTerms);
     const result = {};
     cleanedTerms.forEach((term) => {
-      const found = invIndex.searchIndex(term, scope.fileToSearch);
+      const found = invIndex.searchIndex(term, scope.fileSearch);
       if (found !== false) {
         result[term] = found;
       }
     });
 
     const titles = [];
-    const file = JSON.parse(scope.filesRead[scope.fileToSearch]);
+    const file = JSON.parse(scope.filesRead[scope.fileSearch]);
     file.forEach(obj => titles.push(obj.title));
     const documents = [];
     for (let i = 0; i < titles.length; i += 1) {
@@ -85,6 +82,7 @@ invApp.controller('invController', ['$scope', ($scope) => {
     scope.search.push({
       indexes: result,
       docs: documents,
+      searchedFile: scope.fileSearch,
       title: titles,
     });
     console.log(scope.search[0].indexes);
@@ -96,11 +94,13 @@ invApp.controller('invController', ['$scope', ($scope) => {
     scope.search = [];
     if (scope.fileToSearch === 'All') {
       const all = Object.keys(scope.filesIndexed);
+      console.log(all);
       all.forEach((file) => {
-        scope.fileToSearch = file;
+        scope.fileSearch = file;
         searchIndexOneFile();
       });
     } else {
+      scope.fileSearch = scope.fileToSearch;
       searchIndexOneFile();
     }
   };
