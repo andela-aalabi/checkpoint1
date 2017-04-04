@@ -36,6 +36,7 @@
     "gulp-browserify": "^0.5.1",
     "gulp-connect": "^5.0.0",
     "gulp-open": "^2.0.0",
+    "gulp-rename": "^1.2.2",
     "jasmine": "^2.5.3"
   }
 }
