@@ -4,23 +4,12 @@ const open = require('gulp-open');
 const browserify = require('gulp-browserify');
 const rename = require('gulp-rename');
 const Server = require('karma').Server;
-const browserSync = require('browser-sync');
 
 const htmlSource = './index.html';
 const cssSource = './stylesheet.css';
 const jsSource = './app.js';
 
 
-gulp.task('browserSync', () => {
-  browserSync({
-    server: {
-      baseDir: './',
-      index: './index',
-    },
-    port: process.env.PORT || 3000,
-    files: ['./index', './Books', './app', './stylesheet', './jasmine-standalone-2.5.2/spec/inverted-index-spec'],
-  });
-});
 
 gulp.task('connect', () => {
   connect.server({
