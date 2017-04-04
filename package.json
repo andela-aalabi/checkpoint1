@@ -4,7 +4,7 @@
   "description": "Inverted Index application which utilizes the elastic search method",
   "main": "inverted-index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "gulp",
     "test": "karma start my-dexit.conf.js --single-run"
   },
   "repository": {
@@ -31,6 +31,7 @@
     "karma-jasmine": "^1.1.0"
   },
   "dependencies": {
+    "browser-sync": "^2.18.8",
     "gulp": "^3.9.1",
     "gulp-connect": "^5.0.0",
     "gulp-open": "^2.0.0",

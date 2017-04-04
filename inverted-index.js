@@ -56,8 +56,9 @@ class InvertedIndex {
   */
   tokenize(text) {
     this.text = text;
-    let cleanWords = this.text.replace(/[^\w\s]/gi, '');
+    let cleanWords = this.text.replace(/[^\w\s]/gi, ' ');
     cleanWords = cleanWords.replace(/\s+/g, ' ').toLowerCase();
+    cleanWords = cleanWords.trim();
     return cleanWords.split(' ');
   }
 
@@ -111,12 +112,16 @@ class InvertedIndex {
    * @param {Object} file - specific file to search through
    * @return {String} string of text in the uploaded file
   */
-  searchIndex(word, file) {
-    if (file === 'all') {
+  searchIndex(word, filename) {
+    if (filename === 'all') {
       const filesIndexedDocs = Object.keys(this.allIndexed);
       return filesIndexedDocs.forEach(doc => this.allIndexed[doc][word]);
     }
-    return this.allIndexed[file][word];
+
+    if (this.allIndexed[filename][word] === undefined) {
+      return false;
+    }
+    return this.allIndexed[filename][word];
   }
 }
 
