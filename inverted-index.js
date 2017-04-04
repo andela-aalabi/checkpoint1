@@ -25,9 +25,9 @@ class InvertedIndex {
       text = this.tokenize(text);
       text.forEach((word) => {
         if (!(word in indexed)) {
-          indexed[word] = [(index + 1)];
-        } else if (!(indexed[word].includes(index + 1))) {
-          indexed[word].push(index + 1);
+          indexed[word] = [(index)];
+        } else if (!(indexed[word].includes(index))) {
+          indexed[word].push(index);
         }
       });
     });
@@ -56,8 +56,9 @@ class InvertedIndex {
   */
   tokenize(text) {
     this.text = text;
-    let cleanWords = this.text.replace(/[^\w\s]/gi, '');
+    let cleanWords = this.text.replace(/[^\w\s]/gi, ' ');
     cleanWords = cleanWords.replace(/\s+/g, ' ').toLowerCase();
+    cleanWords = cleanWords.trim();
     return cleanWords.split(' ');
   }
 
@@ -111,16 +112,16 @@ class InvertedIndex {
    * @param {Object} file - specific file to search through
    * @return {String} string of text in the uploaded file
   */
-  static searchIndex(word, file) {
-    if (file === 'all') {
-      const filesIndexedDocs = Object.keys(this.filesIndexed);
-      filesIndexedDocs.forEach((doc) => {
-        console.log(doc, this.filesIndexed[doc][word]);
-      });
+  searchIndex(word, filename) {
+    if (filename === 'all') {
+      const filesIndexedDocs = Object.keys(this.allIndexed);
+      return filesIndexedDocs.forEach(doc => this.allIndexed[doc][word]);
     }
-    const location = this.getIndex(file);
-    // for ()
-    return location[word];
+
+    if (this.allIndexed[filename][word] === undefined) {
+      return false;
+    }
+    return this.allIndexed[filename][word];
   }
 }
 
@@ -131,4 +132,4 @@ class InvertedIndex {
 // getIndex: Get’s indices created for particular files
 // searchIndex: Searches through one or more indices for words
 
-module.exports = InvertedIndex;
+// module.exports = InvertedIndex;
