@@ -58,7 +58,7 @@ class InvertedIndex {
   */
   tokenize(text) {
     this.text = text;
-    let cleanWords = this.text.replace(/[^\w\s]/gi, ' ');
+    let cleanWords = text.replace(/[^\w\s]/gi, ' ').replace(/_/g, ' ');
     cleanWords = cleanWords.replace(/\s+/g, ' ').toLowerCase();
     cleanWords = cleanWords.trim();
     return cleanWords.split(' ');
