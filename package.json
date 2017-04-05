@@ -5,7 +5,7 @@
   "main": "inverted-index.js",
   "scripts": {
     "start": "gulp",
-    "test": "karma start my-dexit.conf.js --single-run"
+    "test": "karma start karma.conf.js --single-run"
   },
   "repository": {
     "type": "git",
