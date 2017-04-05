@@ -104,4 +104,15 @@ describe('InvertedIndex', () => {
       expect(invIndex.validateFile(valid2, 'valid2.json')).toBeTruthy();
     });
   });
+
+  describe('searchIndex', () => {
+    it('Should be able to get indices of words from already indexed files', () => {
+      invIndex.createIndex(valid3, 'valid3.json');
+      invIndex.createIndex(valid4, 'valid4.json');
+      expect(invIndex.searchIndex('could', 'valid4.json')).toEqual([ 0, 1 ]);
+      expect(invIndex.searchIndex('testing', 'valid4.json')).toEqual([ 0 ]);
+      expect(invIndex.searchIndex('pass', 'valid4.json')).toEqual([ 1 ]);
+      expect(invIndex.searchIndex('the', 'valid3.json')).toEqual([ 0, 1 ]);
+    });
+  });
 });

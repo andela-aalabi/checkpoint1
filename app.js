@@ -1,7 +1,7 @@
 /* global angular, InvertedIndex, document, toastr*/
 const invApp = angular.module('invIndex', []);
 
-toastr.options.closeDuration = 500;
+toastr.options.timeOut = 2500;
 toastr.options.closeButton = true;
 toastr.options.preventDuplicates = true;
 toastr.options.closeMethod = 'fadeOut';

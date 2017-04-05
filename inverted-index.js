@@ -111,15 +111,10 @@ class InvertedIndex {
   /**
    * searchIndex method searches the indexed files for occurences of words
    * @param {String} word - word that one is searching for
-   * @param {Object} filename - specific file to search through
-   * @return {String} string of text in the uploaded file
+   * @param {String} filename - specific file to search through
+   * @return {array} array of indexes of word(s) in the file(s)
   */
   searchIndex(word, filename) {
-    if (filename === 'all') {
-      const filesIndexedDocs = Object.keys(this.allIndexed);
-      return filesIndexedDocs.forEach(doc => this.allIndexed[doc][word]);
-    }
-
     if (this.allIndexed[filename][word] === undefined) {
       return false;
     }
