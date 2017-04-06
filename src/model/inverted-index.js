@@ -120,8 +120,9 @@ class InvertedIndex {
   /**
    * searchIndex method searches the indexed files for occurences of words
    * @param {String} word - word(s) that one is searching for
-   * @param {String} fileName - specific file to search through
-   * @return {array} array of indexes of word(s) in the file(s)
+   * @param {String} fileName - specific file or all to search through
+   * @return {Object} Object with indexes of word(s) in the file(s)
+   *                  and other file properties
   */
   searchIndex(word, fileName) {
     const found = [];
