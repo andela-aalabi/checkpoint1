@@ -76,9 +76,9 @@
             <tbody>
               <tr ng-repeat="(key, value) in details.indexes">
                 <td>{{key}}</td>
-                <td ng-repeat="docposition in details.docs" style="text-align:center; font-weight:bold">
-                  <span ng-if="value.includes(docposition)" style="color:green" class="glyphicon glyphicon-ok"></span>
-                  <span ng-if="!value.includes(docposition)" style="color:red" class="glyphicon glyphicon-remove"></span>
+                <td ng-repeat="index in details.documentIndexes" style="text-align:center; font-weight:bold">
+                  <span ng-if="value.includes(index)" style="color:green" class="glyphicon glyphicon-ok"></span>
+                  <span ng-if="!value.includes(index)" style="color:red" class="glyphicon glyphicon-remove"></span>
                 </td>
               </tr>
             </tbody>
@@ -101,9 +101,9 @@
             <tbody>
               <tr ng-repeat="(key, value) in details.indexes">
                 <td>{{key}}</td>
-                <td ng-repeat="docposition in details.docIndex" style="text-align:center; font-weight:bold">
-                  <span ng-if="value.includes(docposition)" style="color:green" class="glyphicon glyphicon-ok"></span>
-                  <span ng-if="!value.includes(docposition)" style="color:red" class="glyphicon glyphicon-remove"></span>
+                <td ng-repeat="index in details.documentIndexes" style="text-align:center; font-weight:bold">
+                  <span ng-if="value.includes(index)" style="color:green" class="glyphicon glyphicon-ok"></span>
+                  <span ng-if="!value.includes(index)" style="color:red" class="glyphicon glyphicon-remove"></span>
                 </td>
               </tr>
             </tbody>
