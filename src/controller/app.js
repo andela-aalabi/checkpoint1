@@ -78,8 +78,6 @@ invApp.controller('invController', ['$scope', ($scope) => {
         throw new Error('Please type in word(s) to search for');
       }
       const response = invertedIndex.searchIndex(scope.selectedSearch, scope.fileToSearch);
-      console.log(response[0].indexes);
-      console.log(response[1].indexes);
       if (response === false) {
         throw new Error('Please type word(s) to search for and not symbols');
       }
