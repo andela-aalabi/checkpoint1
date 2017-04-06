@@ -69,56 +69,22 @@ invApp.controller('invController', ['$scope', ($scope) => {
     }
   };
 
-  const searchIndexOneFile = () => {
+  scope.searchIndex = () => {
     try {
-      if (!scope.fileSearch) {
+      if (!scope.fileToSearch) {
         throw new Error('Please select a file to search');
       }
       if (!scope.selectedSearch) {
         throw new Error('Please type in word(s) to search for');
       }
-      const cleanedTerms = invIndex.tokenize(scope.selectedSearch);
-      if (cleanedTerms[0] === '' && cleanedTerms.length === 1) {
+      const response = invIndex.searchIndex(scope.selectedSearch, scope.fileToSearch);
+      if (response === false) {
         throw new Error('Please type word(s) to search for and not symbols');
-      } else {
-        const result = {};
-        scope.displaySearch = cleanedTerms.toString();
-        cleanedTerms.forEach((term) => {
-          const found = invIndex.searchIndex(term, scope.fileSearch);
-          result[term] = found;
-        });
-
-        const titles = [];
-        const file = JSON.parse(scope.filesRead[scope.fileSearch]);
-        file.forEach(obj => titles.push(obj.title));
-        const documents = [];
-        for (let i = 0; i < titles.length; i += 1) {
-          documents.push(i);
-        }
-        scope.search.push({
-          indexes: result,
-          docs: documents,
-          searchedFile: scope.fileSearch,
-          title: titles,
-        });
-        scope.showIndex = false;
       }
+      scope.search = response;
+      scope.showIndex = false;
     } catch (e) {
       toastr.error(e);
-    }
-  };
-
-  scope.searchIndex = () => {
-    scope.search = [];
-    if (scope.fileToSearch === 'All') {
-      const all = Object.keys(scope.filesIndexed);
-      all.forEach((file) => {
-        scope.fileSearch = file;
-        searchIndexOneFile();
-      });
-    } else {
-      scope.fileSearch = scope.fileToSearch;
-      searchIndexOneFile();
     }
   };
 

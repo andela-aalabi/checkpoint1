@@ -6,8 +6,8 @@ const rename = require('gulp-rename');
 const Server = require('karma').Server;
 
 const htmlSource = './index.html';
-const cssSource = './stylesheet.css';
-const jsSource = './app.js';
+const cssSource = './src/stylesheet.css';
+const jsSource = './src/controller/app.js';
 
 gulp.task('connect', () => {
   connect.server({
@@ -58,7 +58,7 @@ gulp.task('watch', () => {
   gulp.watch(htmlSource, ['html']);
   gulp.watch(cssSource, ['css']);
   gulp.watch(jsSource, ['js']);
-  gulp.watch('./app/class/invertedIndexClass.js', ['scripts']);
+  gulp.watch('./src/model/inverted-index.js', ['scripts']);
   gulp.watch('./jasmine-standalone-2.5.2/spec/inverted-index-spec.js', ['scripts']);
 });
 

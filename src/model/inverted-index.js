@@ -10,6 +10,8 @@ class InvertedIndex {
    */
   constructor() {
     this.allIndexed = {};
+    this.allTitles = {};
+    this.documentsIndex = {};
   }
 
   /**
@@ -21,8 +23,10 @@ class InvertedIndex {
    */
   createIndex(file, filename) {
     const indexed = {};
+    const titles = [];
     file.forEach((obj, index) => {
       let text = `${obj.title} ${obj.text}`;
+      titles.push(obj.title);
       text = this.tokenize(text);
       text.forEach((word) => {
         if (!(word in indexed)) {
@@ -32,7 +36,13 @@ class InvertedIndex {
         }
       });
     });
+    const documents = [];
+    for (let i = 0; i < titles.length; i += 1) {
+      documents.push(i);
+    }
     this.allIndexed[filename] = indexed;
+    this.allTitles[filename] = titles;
+    this.documentsIndex[filename] = documents;
     return indexed;
   }
 
@@ -58,10 +68,8 @@ class InvertedIndex {
   */
   tokenize(text) {
     this.text = text;
-    let cleanWords = text.replace(/[^\w\s]/gi, ' ').replace(/_/g, ' ');
-    cleanWords = cleanWords.replace(/\s+/g, ' ').toLowerCase();
-    cleanWords = cleanWords.trim();
-    return cleanWords.split(' ');
+    const cleanWords = this.text.toLowerCase().match(/[a-z0-9]+/g);
+    return cleanWords;
   }
 
   /**
@@ -110,15 +118,47 @@ class InvertedIndex {
 
   /**
    * searchIndex method searches the indexed files for occurences of words
-   * @param {String} word - word that one is searching for
+   * @param {String} word - word(s) that one is searching for
    * @param {String} filename - specific file to search through
    * @return {array} array of indexes of word(s) in the file(s)
   */
   searchIndex(word, filename) {
-    if (this.allIndexed[filename][word] === undefined) {
+    const found = [];
+    const cleanedTerms = this.tokenize(word);
+
+    if (cleanedTerms[0] === '' && cleanedTerms.length === 1) {
       return false;
     }
-    return this.allIndexed[filename][word];
+
+    if (filename === 'All') {
+      const allFiles = Object.keys(this.allIndexed);
+      allFiles.forEach((file) => {
+        const result = {};
+        cleanedTerms.forEach((term) => {
+          result[term] = this.allIndexed[file][term];
+        });
+        found.push({
+          indexes: result,
+          wordsSearchedFor: cleanedTerms.toString(),
+          docIndex: this.documentsIndex[file],
+          searchedFile: file,
+          title: this.allTitles[file],
+        });
+      });
+      return found;
+    }
+    const result = {};
+    cleanedTerms.forEach((term) => {
+      result[term] = this.allIndexed[filename][term];
+    });
+    found.push({
+      indexes: result,
+      wordsSearchedFor: cleanedTerms.toString(),
+      docIndex: this.documentsIndex[filename],
+      searchedFile: filename,
+      title: this.allTitles[filename],
+    });
+    return found;
   }
 }
 
