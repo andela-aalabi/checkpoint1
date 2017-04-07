@@ -18,8 +18,6 @@ ratings:
     - "src/controller/app.js"
     - "src/model/inverted-index.js"
     - "jasmine-standalone-2.5.2/spec/inverted-index-spec.js"
-languages:
-  JavaScript: true
 exclude_paths:
 - "src/stylesheet.css"
 - "coverage/"
