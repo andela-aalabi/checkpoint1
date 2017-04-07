@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/andela-aalabi/checkpoint1.svg?branch=master)](https://travis-ci.org/andela-aalabi/checkpoint1)
-[![Coverage Status](https://coveralls.io/repos/github/andela-aalabi/checkpoint1/badge.svg?branch=staging)](https://coveralls.io/github/andela-aalabi/checkpoint1?branch=staging)
+[![Coverage Status](https://coveralls.io/repos/github/andela-aalabi/checkpoint1/badge.svg)](https://coveralls.io/github/andela-aalabi/checkpoint1)
 [![Code Climate](https://codeclimate.com/github/andela-aalabi/checkpoint1/badges/gpa.svg)](https://codeclimate.com/github/andela-aalabi/checkpoint1)
 
 # Inverted Index
