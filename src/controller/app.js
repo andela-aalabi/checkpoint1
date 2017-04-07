@@ -44,12 +44,12 @@ invApp.controller('invController', ['$scope', ($scope) => {
     }
   };
 
-  scope.getIndex = (fileName) => {
+  scope.createIndex = (fileName) => {
     try {
       const titles = [];
       const fileContent = JSON.parse(scope.filesRead[fileName]);
       fileContent.forEach(book => titles.push(book.title));
-      const indices = invertedIndex.getIndex(fileContent, fileName);
+      const indices = invertedIndex.createIndex(fileContent, fileName);
       const documents = [];
       for (let i = 0; i < titles.length; i += 1) {
         documents.push(i);
@@ -77,7 +77,8 @@ invApp.controller('invController', ['$scope', ($scope) => {
       if (!scope.selectedSearch) {
         throw new Error('Please type in word(s) to search for');
       }
-      const response = invertedIndex.searchIndex(scope.selectedSearch, scope.fileToSearch);
+      const response = invertedIndex.searchIndex(scope.selectedSearch,
+                                                  scope.fileToSearch);
       if (response === false) {
         throw new Error('Please type word(s) to search for and not symbols');
       }
