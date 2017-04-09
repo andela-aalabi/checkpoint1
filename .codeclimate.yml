@@ -16,8 +16,8 @@ engines:
 ratings:
   paths:
     - "src/controller/app.js"
-    - "src/model/inverted-index.js"
-    - "jasmine-standalone-2.5.2/spec/inverted-index-spec.js"
+    - "src/model/invertedIndex.js"
+    - "jasmine-standalone-2.5.2/spec/invertedIndex.spec.js"
 exclude_paths:
 - "src/stylesheet.css"
 - "coverage/"

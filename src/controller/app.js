@@ -18,9 +18,9 @@ invApp.controller('invController', ['$scope', ($scope) => {
   scope.readFile = (files) => {
     const document = files.target;
     for (let i = 0; i < document.files.length; i += 1) {
-      invertedIndex.readFile(document.files[i]).then((fileContent) => {
+      InvertedIndex.readFile(document.files[i]).then((fileContent) => {
         if (scope.validateJson(fileContent)) {
-          if (invertedIndex.validateFile(JSON.parse(fileContent))) {
+          if (InvertedIndex.validateFile(JSON.parse(fileContent))) {
             scope.filesRead[document.files[i].name] = fileContent;
             if (!(scope.uploadedFiles.includes(document.files[i].name))) {
               scope.$apply(scope.uploadedFiles.push(document.files[i].name));

@@ -2,7 +2,7 @@
   "name": "invertedindex",
   "version": "1.0.0",
   "description": "Inverted Index application which utilizes the elastic search method",
-  "main": "inverted-index.js",
+  "main": "invertedIndex.js",
   "scripts": {
     "start": "gulp",
     "test": "karma start karma.conf.js --single-run"

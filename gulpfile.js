@@ -38,7 +38,7 @@ gulp.task('js', () => {
 });
 
 gulp.task('scripts', () => {
-  gulp.src(['./jasmine-standalone-2.5.2/spec/inverted-index-spec.js'])
+  gulp.src(['./jasmine-standalone-2.5.2/spec/invertedIndex.spec.js'])
     .pipe(browserify())
     .pipe(rename('bundle.js'))
     .pipe(gulp.dest('./jasmine-standalone-2.5.2/build'));
@@ -58,8 +58,8 @@ gulp.task('watch', () => {
   gulp.watch(htmlSource, ['html']);
   gulp.watch(cssSource, ['css']);
   gulp.watch(jsSource, ['js']);
-  gulp.watch('./src/model/inverted-index.js', ['scripts']);
-  gulp.watch('./jasmine-standalone-2.5.2/spec/inverted-index-spec.js', ['scripts']);
+  gulp.watch('./src/model/invertedIndex.js', ['scripts']);
+  gulp.watch('./jasmine-standalone-2.5.2/spec/invertedIndex.spec.js', ['scripts']);
 });
 
 gulp.task('default',
