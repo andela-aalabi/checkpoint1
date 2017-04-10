@@ -71,7 +71,7 @@
           <table class="table table-striped">
             <thead>
               <th>Words</th>
-              <th  style="text-align:center" ng-repeat="i in details.title">{{i}}</th>
+              <th  style="text-align:center" ng-repeat="i in details.title track by $index">{{i}}</th>
             </thead>
             <tbody>
               <tr ng-repeat="(key, value) in details.indexes">
@@ -96,7 +96,7 @@
           <table class="table table-striped">
             <thead>
               <th>Words</th>
-              <th  style="text-align:center" ng-repeat="i in details.title">{{i}}</th>
+              <th  style="text-align:center" ng-repeat="i in details.title track by $index">{{i}}</th>
             </thead>
             <tbody>
               <tr ng-repeat="(key, value) in details.indexes">
