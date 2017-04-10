@@ -52,10 +52,10 @@ class InvertedIndex {
    * getIndex method gets the indexed file with words from documents that were
    * found. If the file has not been indexed, it calls the create index method
    * to create the index
-   * @param {Object} fileContent - the file content we want to get indexed
+   * @param {String} fileName - the name of the file to get indexes
    * @return {Object} all words in the file and their corresponding indexes
    */
-  getIndex(fileContent, fileName) {
+  getIndex(fileName) {
     if (fileName in this.allIndexed) {
       return this.allIndexed[fileName];
     }
