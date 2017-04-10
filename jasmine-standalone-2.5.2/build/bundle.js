@@ -76,7 +76,7 @@ describe('InvertedIndex', () => {
   describe('getIndex', () => {
     it('should get indices from already created ones', () => {
       invertedIndex.createIndex(religiousBook, 'religiousBook.json');
-      expect(invertedIndex.getIndex(religiousBook, 'religiousBook.json'))
+      expect(invertedIndex.getIndex('religiousBook.json'))
         .toEqual(religiousBookIndexes);
     });
 
