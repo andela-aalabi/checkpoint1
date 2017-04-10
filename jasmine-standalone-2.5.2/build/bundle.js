@@ -1,23 +1,22 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-/* global describe, it, expect */
-const fantasyBook = require('./test books/fantasyBook.json'),
-      quotesAndRap = require('./test books/quotesAndRap.json'),
-      religiousBook = require('./test books/religiousBook.json'),
-      testsBook = require('./test books/testsBook.json'),
-      notArray = require('./test books/notArray.json'),
-      notArrayOfObjects = require('./test books/notArrayOfObjects.json'),
-      moreThanTwoKeys = require('./test books/moreThanTwoKeys.json'),
-      notAllTextKeys = require('./test books/notAllTextKeys.json'),
-      capitalTitleKey= require('./test books/capitalTitleKey.json'),
-      titleValueAsNumber = require('./test books/titleValueAsNumber.json'),
-      textValueAsNumber = require('./test books/textValueAsNumber.json');
-      religiousBookIndexes = require('./test books/religiousBookIndexes.json');
+/* global describe, it, expect, InvertedIndex */
+const fantasyBook = require('./test books/fantasyBook.json');
+const quotesAndRap = require('./test books/quotesAndRap.json');
+const religiousBook = require('./test books/religiousBook.json');
+const testsBook = require('./test books/testsBook.json');
+const notArray = require('./test books/notArray.json');
+const notArrayOfObjects = require('./test books/notArrayOfObjects.json');
+const moreThanTwoKeys = require('./test books/moreThanTwoKeys.json');
+const notAllTextKeys = require('./test books/notAllTextKeys.json');
+const capitalTitleKey = require('./test books/capitalTitleKey.json');
+const titleValueAsNumber = require('./test books/titleValueAsNumber.json');
+const textValueAsNumber = require('./test books/textValueAsNumber.json');
+const religiousBookIndexes = require('./test books/religiousBookIndexes.json');
 
 
 const invertedIndex = new InvertedIndex();
 
 describe('InvertedIndex', () => {
-  
   describe('constructor', () => {
     it('should be an instance of  InvertedIndex', () => {
       expect(invertedIndex instanceof InvertedIndex).toBeTruthy();
@@ -62,7 +61,7 @@ describe('InvertedIndex', () => {
     it('should eliminate special characters, symbols and white spaces', () => {
       const textString = 'why We\n so See\t two-timers#@!`~_+=/?"';
 
-      const tokenizedTextString = [ 'why', 'we', 'so', 'see', 'two', 'timers' ];
+      const tokenizedTextString = ['why', 'we', 'so', 'see', 'two', 'timers'];
       expect(InvertedIndex.tokenize(textString)).toEqual(tokenizedTextString);
     });
   });
@@ -88,26 +87,26 @@ describe('InvertedIndex', () => {
   });
 
   describe('validateFile', () => {
-    it('should be false if file is not an array', () => {      
+    it('should be false if file is not an array', () => {
       expect(InvertedIndex.validateFile(notArray, 'notArray.json'))
         .toBeFalsy();
     });
 
-    it('should be false if file is not an array of objects', () => {      
-      expect(InvertedIndex.validateFile(notArrayOfObjects, 
-        'notArrayOfObjects.json')).toBeFalsy();
+    it('should be false if file is not an array of objects', () => {
+      expect(InvertedIndex.validateFile(
+        notArrayOfObjects, 'notArrayOfObjects.json')).toBeFalsy();
     });
 
     it('should be false if file does not contain only "text" and "title" keys',
     () => {
-      expect(InvertedIndex.validateFile(moreThanTwoKeys,
-        'moreThanTwoKeys.json')).toBeFalsy();
+      expect(InvertedIndex.validateFile(
+        moreThanTwoKeys, 'moreThanTwoKeys.json')).toBeFalsy();
 
-      expect(InvertedIndex.validateFile(notAllTextKeys, 'notAllTextKeys.json'))
-        .toBeFalsy();
+      expect(InvertedIndex.validateFile(
+        notAllTextKeys, 'notAllTextKeys.json')).toBeFalsy();
 
-      expect(InvertedIndex.validateFile(capitalTitleKey,
-        'capitalTitleKey.json')).toBeFalsy();
+      expect(InvertedIndex.validateFile(
+        capitalTitleKey, 'capitalTitleKey.json')).toBeFalsy();
     });
 
     it('should be false if file "text" and "title" values are not Strings',
@@ -134,7 +133,7 @@ describe('InvertedIndex', () => {
       expect((invertedIndex.searchIndex('and', 'testsBook.json'))[0]
         .indexes.and).toEqual([1]);
       expect((invertedIndex.searchIndex('the', 'religiousBook.json'))[0]
-        .indexes.the).toEqual([ 0, 1 ]);
+        .indexes.the).toEqual([0, 1]);
     });
 
     it('should be false if empty string is searched for', () => {
@@ -146,34 +145,35 @@ describe('InvertedIndex', () => {
 
       expect((invertedIndex.searchIndex(
         'and,the,that', 'fantasyBook.json'))[0].indexes)
-          .toEqual({and: [ 0, 1 ], the: [ 0, 1, 2 ], that: [ 2 ]});
+          .toEqual({ and: [0, 1], the: [0, 1, 2], that: [2] });
     });
 
     it('should be able to search for multiple words in multiple files', () => {
       invertedIndex.createIndex(quotesAndRap, 'quotesAndRap.json');
 
       expect((invertedIndex.searchIndex('the, that, in', 'All'))[2].indexes)
-        .toEqual({the: [ 0, 1, 2 ], that: [ 2 ], in: [ 0, 2 ]});
+        .toEqual({ the: [0, 1, 2], that: [2], in: [0, 2] });
 
       expect((invertedIndex.searchIndex('the, that,in', 'All'))[2].searchedFile)
         .toEqual('fantasyBook.json');
 
       expect((invertedIndex.searchIndex('the, that, in', 'All'))[2].title)
         .toEqual(["The 'Alice' in Wonderland",
-                  "The Lord of the Rings: The Fellowship of the Ring.",
-                  "The Tower of Babel: Ancient History."]);
+          'The Lord of the Rings: The Fellowship of the Ring.',
+          'The Tower of Babel: Ancient History.']);
 
       expect((invertedIndex.searchIndex('the, that, in', 'All'))[3].indexes)
-        .toEqual({the: [ 2 ], that: [ 0, 1, 2 ], in: undefined});  
+        .toEqual({ the: [2], that: [0, 1, 2], in: undefined });
 
       expect((invertedIndex.searchIndex('the, that,in', 'All'))[3].searchedFile)
         .toEqual('quotesAndRap.json');
 
       expect((invertedIndex.searchIndex('the, that, in', 'All'))[3].title)
-        .toEqual(["Trial and Error", "Sound of Music.", "Pfunky"]);                                                
+        .toEqual(['Trial and Error', 'Sound of Music.', 'Pfunky']);
     });
   });
 });
+
 },{"./test books/capitalTitleKey.json":2,"./test books/fantasyBook.json":3,"./test books/moreThanTwoKeys.json":4,"./test books/notAllTextKeys.json":5,"./test books/notArray.json":6,"./test books/notArrayOfObjects.json":7,"./test books/quotesAndRap.json":8,"./test books/religiousBook.json":9,"./test books/religiousBookIndexes.json":10,"./test books/testsBook.json":11,"./test books/textValueAsNumber.json":12,"./test books/titleValueAsNumber.json":13}],2:[function(require,module,exports){
 module.exports=[
   {
