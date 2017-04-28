@@ -1,4 +1,4 @@
 .DS_Store
 node_modules
-jasmine-standalone-2.5.2/build/bundle.js
+jasmine-standalone-2.5.2/build/lib
 coverage
